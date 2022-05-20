@@ -63,6 +63,7 @@ public class DemoActivity extends AppCompatActivity implements IClientIOCallback
 
     private int mPort = 8080;
 
+    int pos = 0;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -200,7 +201,14 @@ public class DemoActivity extends AppCompatActivity implements IClientIOCallback
             Log.i("onClientIOServer", Thread.currentThread().getName() + " 接收到:" + client.getHostIp() + " " + str);
         }
         MsgDataBean msgDataBean = new MsgDataBean(str);
-        clientPool.sendToAll(msgDataBean);
+//        clientPool.sendToAll(msgDataBean);
+        pos++;
+        if (pos % 2 == 0){
+            clientPool.sendToIp(msgDataBean,"192.168.2.235");
+        } else {
+            clientPool.sendToIp(msgDataBean, "192.168.2.157");
+        }
+
     }
 
     @Override

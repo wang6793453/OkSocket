@@ -12,4 +12,6 @@ public interface IClientPool<T, K> {
     int size();
 
     void sendToAll(ISendable sendable);
+
+    void sendToIp(ISendable sendable,String ip);
 }

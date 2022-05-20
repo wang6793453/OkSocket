@@ -44,6 +44,18 @@ public class ClientPoolImpl extends AbsClientPool<String, IClient> implements IC
         });
     }
 
+    @Override
+    public void sendToIp(final ISendable sendable, final String ip) {
+        echoRun(new Echo<String, IClient>() {
+            @Override
+            public void onEcho(String key, IClient value) {
+                if (key.split("-")[0].equals(ip)){
+                    value.send(sendable);
+                }
+            }
+        });
+    }
+
     public void serverDown(){
         echoRun(new Echo<String, IClient>(){
             @Override
